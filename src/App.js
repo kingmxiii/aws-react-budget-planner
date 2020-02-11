@@ -2,12 +2,36 @@ import React, { Component } from 'react'
 import 'bootstrap/dist/css/bootstrap.css'
 import RangeSlider from './RangeSlider'
 import SalaryInfo from './SalaryInfo'
+import { Auth, Hub } from 'aws-amplify'
+import Protected from './Protected'
+import awsconfig from './aws-exports'
+Auth.configure(awsconfig)
 
 class App extends Component {
 	constructor(props) {
 		super(props)
 		//Initialize Application State
-		this.state = { expensePct: 0, salary: 100000, expense: 0, savings: 0 }
+		this.state = {
+			expensePct: 0,
+			salary: 100000,
+			expense: 0,
+			savings: 0,
+			signedIn: false,
+			user: null
+		}
+	}
+
+	componentDidMount() {
+		Hub.listen('auth', ({ payload: { event, data } }) => {
+			switch (event) {
+				case 'signIn':
+					this.setState({ user: data, signedIn: true })
+					break
+				case 'signOut':
+					this.setState({ user: null, signOut: false })
+					break
+			}
+		})
 	}
 
 	onExpenseChange = expensePct => {
@@ -24,13 +48,15 @@ class App extends Component {
 		})
 	}
 	render() {
-		const { expensePct, salary, expense, savings } = this.state
+		const { expensePct, salary, expense, savings, signedIn } = this.state
 
 		return (
 			<div className="App container">
-				<h1>Hello World!</h1>
-				<RangeSlider value={expensePct} onChange={this.onExpenseChange} />
-				<SalaryInfo salary={salary} expense={expense} savings={savings} />
+				<Protected signedIn={signedIn}>
+					<h1>Hello World!</h1>
+					<RangeSlider value={expensePct} onChange={this.onExpenseChange} />
+					<SalaryInfo salary={salary} expense={expense} savings={savings} />
+				</Protected>
 			</div>
 		)
 	}
