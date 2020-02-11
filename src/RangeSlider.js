@@ -1,7 +1,7 @@
 import React from 'react'
 
 const RangeSlider = ({ value, onChange }) => (
-	<div className="row">
+	<div className="row mb-5">
 		<div className="forn-group col-md-12">
 			<label>Expenses {value} %</label>
 			<input
