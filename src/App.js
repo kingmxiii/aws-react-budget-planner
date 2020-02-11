@@ -7,14 +7,20 @@ class App extends Component {
 	constructor(props) {
 		super(props)
 		//Initialize Application State
-		this.state = { expensePct: 0, salary: 0, expense: 0, savings: 0 }
+		this.state = { expensePct: 0, salary: 100000, expense: 0, savings: 0 }
 	}
 
 	onExpenseChange = expensePct => {
 		const { salary } = this.state
 
-		let expense = this.setState({
-			expensePct
+		//Calculate Savings and Expense based on new Expense Percent.
+		let expense = (salary / 12) * (expensePct / 100)
+		let savings = (salary / 12) * (1 - expensePct / 100)
+
+		this.setState({
+			expensePct,
+			expense,
+			savings
 		})
 	}
 	render() {
