@@ -1,0 +1,15 @@
+{
+    "budget": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-budget-planner-budget-145926-authRole",
+            "UnauthRoleArn": "arn:aws:iam::883095374057:role/amplify-budget-planner-budget-145926-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::883095374057:role/amplify-budget-planner-budget-145926-authRole",
+            "Region": "us-east-2",
+            "DeploymentBucketName": "amplify-budget-planner-budget-145926-deployment",
+            "UnauthRoleName": "amplify-budget-planner-budget-145926-unauthRole",
+            "StackName": "amplify-budget-planner-budget-145926",
+            "StackId": "arn:aws:cloudformation:us-east-2:883095374057:stack/amplify-budget-planner-budget-145926/0e817130-4d09-11ea-8d2f-06d398e7edd6",
+            "AmplifyAppId": "d1gw9exxww8a6w"
+        }
+    }
+}
