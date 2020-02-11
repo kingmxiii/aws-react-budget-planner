@@ -10,6 +10,13 @@
             "StackName": "amplify-budget-planner-budget-145926",
             "StackId": "arn:aws:cloudformation:us-east-2:883095374057:stack/amplify-budget-planner-budget-145926/0e817130-4d09-11ea-8d2f-06d398e7edd6",
             "AmplifyAppId": "d1gw9exxww8a6w"
+        },
+        "categories": {
+            "auth": {
+                "budgetplanner4a00762c": {
+                    "hostedUIProviderCreds": "[{\"ProviderName\":\"Google\",\"client_id\":\"298992358966-ruomu431lu0pbbkh6bqvn86ml0v3nf0m.apps.googleusercontent.com\",\"client_secret\":\"4lb2TGGKpnoVeLRSjQJyaee-\"}]"
+                }
+            }
         }
     }
 }
