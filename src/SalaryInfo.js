@@ -1,4 +1,12 @@
 import React, { Fragment } from 'react'
+import numeral from 'numeral'
+
+const currency = val => {
+	if (val !== undefined && val !== null) {
+		return numeral(val).format('$0,0.00')
+	}
+	return ''
+}
 
 const SalaryInfo = ({
 	salary,
@@ -49,7 +57,7 @@ const SalaryInfo = ({
 								)}
 							</Fragment>
 						) : (
-							<label>{salary}</label>
+							<label>{currency(salary)}</label>
 						)}
 					</div>
 				</div>
@@ -60,7 +68,7 @@ const SalaryInfo = ({
 						</label>
 					</div>
 					<div className="col">
-						<label>{expense}</label>
+						<label>{currency(expense)}</label>
 					</div>
 				</div>
 				<div className="form-row">
@@ -70,7 +78,7 @@ const SalaryInfo = ({
 						</label>
 					</div>
 					<div className="col">
-						<label>{savings}</label>
+						<label>{currency(savings)}</label>
 					</div>
 				</div>
 			</div>
