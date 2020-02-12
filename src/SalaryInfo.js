@@ -17,7 +17,9 @@ const SalaryInfo = ({
 	onSaveClick,
 	expensePct
 }) => {
+	//Check is Salary is a valid number
 	let isValidSalary = !isNaN(salary)
+	//Determine is Save button should be displayed.
 	let showSavedBtn = isSaved === false && isValidSalary && salary > 0
 	return (
 		<div className="row">

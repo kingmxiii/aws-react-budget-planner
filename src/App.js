@@ -23,6 +23,7 @@ if (NODE_ENV === 'production') {
 //Configure Amplify Auth
 Auth.configure(awsconfig)
 
+//Default App State Object
 const deFaultState = {
 	expensePct: 0,
 	salary: 0,
@@ -42,9 +43,11 @@ class App extends Component {
 	}
 
 	componentDidMount() {
+		//Listen for user Authentication Events
 		Hub.listen('auth', ({ payload: { event, data } }) => {
 			switch (event) {
 				case 'signIn':
+					//Set User Data on user Signing
 					this.setState({ signedIn: true }, async () => {
 						let user = await Auth.currentAuthenticatedUser({
 							bypassCache: false
@@ -61,6 +64,7 @@ class App extends Component {
 
 					break
 				case 'signOut':
+					//Reset State on User sign out.
 					this.setState({ ...deFaultState })
 					break
 			}
@@ -80,6 +84,7 @@ class App extends Component {
 	}
 
 	calculateSalary = () => {
+		//Calculate Expenses and Saving based on user input
 		const { salary, expensePct } = this.state
 
 		if (isNaN(salary)) {
@@ -108,7 +113,9 @@ class App extends Component {
 			isSaved
 		} = this.state
 
+		//Retrieve and set user name
 		let name = user !== null ? user.name : ''
+		//Set display Msg based on isSaved flag
 		let displayMsg =
 			isSaved === true ? 'Thank you' : 'Welcome to your monthly budget'
 
