@@ -9,20 +9,22 @@ import Loadable from './Loadable'
 import awsconfig from './aws-exports'
 Auth.configure(awsconfig)
 
+const deFaultState = {
+	expensePct: 0,
+	salary: 0,
+	expense: 0,
+	savings: 0,
+	signedIn: false,
+	user: null,
+	loading: true,
+	isSaved: false
+}
+
 class App extends Component {
 	constructor(props) {
 		super(props)
 		//Initialize Application State
-		this.state = {
-			expensePct: 0,
-			salary: 0,
-			expense: 0,
-			savings: 0,
-			signedIn: false,
-			user: null,
-			loading: true,
-			isSaved: false
-		}
+		this.state = deFaultState
 	}
 
 	componentDidMount() {
@@ -45,7 +47,7 @@ class App extends Component {
 
 					break
 				case 'signOut':
-					this.setState({ user: null, signOut: false, loading: true })
+					this.setState({ ...deFaultState })
 					break
 			}
 		})
@@ -101,26 +103,30 @@ class App extends Component {
 				<Header signedIn={signedIn} />
 				<div className="App container">
 					<Protected signedIn={signedIn}>
-						<Loadable loading={loading}>
-							<h5 className="text-center">{displayMsg}</h5>
-							<h4 className="text-center">{name}</h4>
+						<div
+							className="col-md-8 offset-md-2 border"
+							style={{ padding: '40px' }}>
+							<Loadable loading={loading}>
+								<h5 className="text-center mb-0">{displayMsg}</h5>
+								<h4 className="text-center">{name}</h4>
 
-							{isSaved === false && (
-								<RangeSlider
-									value={expensePct}
-									onChange={this.onExpenseChange}
+								{isSaved === false && (
+									<RangeSlider
+										value={expensePct}
+										onChange={this.onExpenseChange}
+									/>
+								)}
+								<SalaryInfo
+									salary={salary}
+									expense={expense}
+									savings={savings}
+									onSalaryChange={this.onSalaryChange}
+									isSaved={isSaved}
+									onSaveClick={this.onSaveClick}
+									expensePct={expensePct}
 								/>
-							)}
-							<SalaryInfo
-								salary={salary}
-								expense={expense}
-								savings={savings}
-								onSalaryChange={this.onSalaryChange}
-								isSaved={isSaved}
-								onSaveClick={this.onSaveClick}
-								expensePct={expensePct}
-							/>
-						</Loadable>
+							</Loadable>
+						</div>
 					</Protected>
 				</div>
 			</Fragment>

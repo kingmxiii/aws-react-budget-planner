@@ -13,7 +13,7 @@ const Header = ({ signedIn }) => (
 		<h4 className="text-white mb-0">Budget App</h4>
 		{signedIn && (
 			<span
-				class="btn btn-danger align-self-end"
+				className="btn btn-danger align-self-end"
 				onClick={() => Auth.signOut()}>
 				Logout
 			</span>

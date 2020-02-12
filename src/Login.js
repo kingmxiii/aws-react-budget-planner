@@ -5,8 +5,9 @@ import googleLogo from './Logo.svg.webp'
 const Login = () => (
 	<div className="row d-flex justify-content-center align-items-center p-5">
 		<div className="p-5 border">
+			<h6 className="mb-2">Welcome to Budget App</h6>
 			<span
-				class="btn btn-outline-dark"
+				className="btn btn-outline-dark"
 				onClick={() => Auth.federatedSignIn({ provider: 'Google' })}
 				role="button"
 				style={{ textTransform: 'none' }}>
