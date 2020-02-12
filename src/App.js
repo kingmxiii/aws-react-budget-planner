@@ -8,19 +8,19 @@ import Protected from './Protected'
 import Loadable from './Loadable'
 import awsconfig from './aws-exports'
 
+//Get Current Environment (Prod/Dev)
 const { NODE_ENV } = process.env
 
+//Default Prod URL. In Real life project this would go in .env file or Env Variables
 const DEFAULT_URL = 'https://master.d19rnpous682hl.amplifyapp.com/'
 
-console.log('ENV', NODE_ENV)
-console.log('PE', process.env)
-
+//If in Production set app id and oauth redirect urls
 if (NODE_ENV === 'production') {
 	awsconfig.oauth.redirectSignIn = DEFAULT_URL
 	awsconfig.oauth.redirectSignOut = DEFAULT_URL
-	awsconfig.aws_user_pools_web_client_id = '1h1knk54nu0iuldi721hab19e9'
 }
 
+//Configure Amplify Auth
 Auth.configure(awsconfig)
 
 const deFaultState = {
