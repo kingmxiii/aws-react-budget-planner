@@ -1,6 +1,6 @@
 import React from 'react'
 
-const SalaryInfo = ({ salary, expense, savings }) => (
+const SalaryInfo = ({ salary, expense, savings, onSalaryChange }) => (
 	<div className="row">
 		<div className="col-md-12">
 			<div className="form-row mb-2">
@@ -10,7 +10,12 @@ const SalaryInfo = ({ salary, expense, savings }) => (
 					</label>
 				</div>
 				<div className="col">
-					<input className="form-control" type="text" value={salary} />
+					<input
+						className="form-control"
+						type="text"
+						value={salary}
+						onChange={e => onSalaryChange(e.target.value)}
+					/>
 				</div>
 			</div>
 			<div className="form-row">
