@@ -6,7 +6,7 @@
 		}
 	},
 	"auth": {
-		"budgetplanner4a00762c": {
+		"budgetplanner3ca8b846": {
 			"service": "Cognito",
 			"providerPlugin": "awscloudformation",
 			"dependsOn": []

@@ -1,8 +1,8 @@
 {
-    "identityPoolName": "budgetplanner4a00762c_identitypool_4a00762c",
+    "identityPoolName": "budgetplanner3ca8b846_identitypool_3ca8b846",
     "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "budget4a00762c",
-    "userPoolName": "budgetplanner4a00762c_userpool_4a00762c",
+    "resourceNameTruncated": "budget3ca8b846",
+    "userPoolName": "budgetplanner3ca8b846_userpool_3ca8b846",
     "autoVerifiedAttributes": [
         "email"
     ],
@@ -28,9 +28,9 @@
     "userpoolClientReadAttributes": [
         "email"
     ],
-    "userpoolClientLambdaRole": "budget4a00762c_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "budget3ca8b846_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "resourceName": "budgetplanner4a00762c",
+    "resourceName": "budgetplanner3ca8b846",
     "authSelections": "identityPoolAndUserPool",
     "authRoleArn": {
         "Fn::GetAtt": [
@@ -47,7 +47,7 @@
     "useDefault": "defaultSocial",
     "hostedUI": true,
     "triggers": "{}",
-    "hostedUIDomainName": "budgetplanner4a00762c-4a00762c",
+    "hostedUIDomainName": "budgetplanner3ca8b846-3ca8b846",
     "authProvidersUserPool": [
         "Google"
     ],

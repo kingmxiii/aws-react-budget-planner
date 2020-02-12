@@ -127,7 +127,7 @@ Resources:
   # Created to allow the UserPool SMS Config to publish via the Simple Notification Service during MFA Process
     Type: AWS::IAM::Role
     Properties:
-      RoleName: !If [ShouldNotCreateEnvResources, 'budget4a00762c_sns-role', !Join ['',[ 'sns', !Select [3, !Split ['-', !Ref 'AWS::StackName']], '-', !Ref env]]]
+      RoleName: !If [ShouldNotCreateEnvResources, 'budget3ca8b846_sns-role', !Join ['',[ 'sns', !Select [3, !Split ['-', !Ref 'AWS::StackName']], '-', !Ref env]]]
       AssumeRolePolicyDocument: 
         Version: "2012-10-17"
         Statement: 
@@ -139,10 +139,10 @@ Resources:
               - "sts:AssumeRole"
             Condition: 
               StringEquals:
-                sts:ExternalId: budget4a00762c_role_external_id
+                sts:ExternalId: budget3ca8b846_role_external_id
       Policies: 
         - 
-          PolicyName: budget4a00762c-sns-policy
+          PolicyName: budget3ca8b846-sns-policy
           PolicyDocument: 
             Version: "2012-10-17"
             Statement: 
@@ -188,7 +188,7 @@ Resources:
       SmsVerificationMessage: !Ref smsVerificationMessage
       SmsConfiguration: 
         SnsCallerArn: !GetAtt SNSRole.Arn
-        ExternalId: budget4a00762c_role_external_id
+        ExternalId: budget3ca8b846_role_external_id
     
   
     
@@ -208,7 +208,7 @@ Resources:
   # Depends on UserPool for ID reference
     Type: "AWS::Cognito::UserPoolClient"
     Properties:
-      ClientName: budget4a00762c_app_clientWeb
+      ClientName: budget3ca8b846_app_clientWeb
       
       RefreshTokenValidity: !Ref userpoolClientRefreshTokenValidity
       UserPoolId: !Ref UserPool
@@ -218,7 +218,7 @@ Resources:
   # Depends on UserPool for ID reference
     Type: "AWS::Cognito::UserPoolClient"
     Properties:
-      ClientName: budget4a00762c_app_client
+      ClientName: budget3ca8b846_app_client
       
       GenerateSecret: !Ref userpoolClientGenerateSecret
       RefreshTokenValidity: !Ref userpoolClientRefreshTokenValidity
@@ -283,7 +283,7 @@ Resources:
   # Marked as depending on UserPoolClientRole for easier to understand CFN sequencing
     Type: 'AWS::IAM::Policy'
     Properties:
-      PolicyName: budget4a00762c_userpoolclient_lambda_iam_policy
+      PolicyName: budget3ca8b846_userpoolclient_lambda_iam_policy
       Roles: 
         - !Ref UserPoolClientRole
       PolicyDocument:
@@ -300,7 +300,7 @@ Resources:
   # Marked as depending on UserPoolClientLambdaPolicy for easier to understand CFN sequencing
     Type: 'AWS::IAM::Policy'
     Properties:
-      PolicyName: budget4a00762c_userpoolclient_lambda_log_policy
+      PolicyName: budget3ca8b846_userpoolclient_lambda_log_policy
       Roles: 
         - !Ref UserPoolClientRole
       PolicyDocument:
@@ -687,7 +687,7 @@ Resources:
   # Always created
     Type: AWS::Cognito::IdentityPool
     Properties: 
-      IdentityPoolName: !If [ShouldNotCreateEnvResources, 'budgetplanner4a00762c_identitypool_4a00762c', !Join ['',['budgetplanner4a00762c_identitypool_4a00762c', '__', !Ref env]]]
+      IdentityPoolName: !If [ShouldNotCreateEnvResources, 'budgetplanner3ca8b846_identitypool_3ca8b846', !Join ['',['budgetplanner3ca8b846_identitypool_3ca8b846', '__', !Ref env]]]
       
       CognitoIdentityProviders:
         - ClientId:  !Ref UserPoolClient
