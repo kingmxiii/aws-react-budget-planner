@@ -10,8 +10,7 @@ import awsconfig from './aws-exports'
 
 const { NODE_ENV } = process.env
 
-const DEFAULT_URL =
-	'https://budget-planner-20200211150132-hostingbucket-budget.s3-website.us-east-2.amazonaws.com/'
+const DEFAULT_URL = 'https://master.d19rnpous682hl.amplifyapp.com/'
 
 console.log('ENV', NODE_ENV)
 console.log('PE', process.env)
