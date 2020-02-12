@@ -4,6 +4,7 @@ import RangeSlider from './RangeSlider'
 import SalaryInfo from './SalaryInfo'
 import { Auth, Hub } from 'aws-amplify'
 import Protected from './Protected'
+import Loadable from './Loadable'
 import awsconfig from './aws-exports'
 Auth.configure(awsconfig)
 
@@ -17,7 +18,8 @@ class App extends Component {
 			expense: 0,
 			savings: 0,
 			signedIn: false,
-			user: null
+			user: null,
+			loading: true
 		}
 	}
 
@@ -25,20 +27,23 @@ class App extends Component {
 		Hub.listen('auth', ({ payload: { event, data } }) => {
 			switch (event) {
 				case 'signIn':
-					Auth.currentAuthenticatedUser({
-						bypassCache: false // Optional, By default is false. If set to true, this call will send a request to Cognito to get the latest user data
-					}).then(user =>
+					this.setState({ signedIn: true }, async () => {
+						let user = await Auth.currentAuthenticatedUser({
+							bypassCache: false
+						})
+
 						this.setState({
 							user: {
 								name: user.attributes.name,
 								email: user.attributes.email
 							},
-							signedIn: true
+							loading: false
 						})
-					)
+					})
+
 					break
 				case 'signOut':
-					this.setState({ user: null, signOut: false })
+					this.setState({ user: null, signOut: false, loading: true })
 					break
 			}
 		})
@@ -58,14 +63,28 @@ class App extends Component {
 		})
 	}
 	render() {
-		const { expensePct, salary, expense, savings, signedIn } = this.state
+		const {
+			expensePct,
+			salary,
+			expense,
+			savings,
+			signedIn,
+			user,
+			loading
+		} = this.state
+
+		let name = user !== null ? user.name : ''
 
 		return (
 			<div className="App container">
 				<Protected signedIn={signedIn}>
-					<h1>Hello World!</h1>
-					<RangeSlider value={expensePct} onChange={this.onExpenseChange} />
-					<SalaryInfo salary={salary} expense={expense} savings={savings} />
+					<Loadable loading={loading}>
+						<h4 className="text-center">
+							Welcome to your monthly budget {name}
+						</h4>
+						<RangeSlider value={expensePct} onChange={this.onExpenseChange} />
+						<SalaryInfo salary={salary} expense={expense} savings={savings} />
+					</Loadable>
 					<button onClick={() => Auth.signOut()}>Logout</button>
 				</Protected>
 			</div>
