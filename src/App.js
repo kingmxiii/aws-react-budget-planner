@@ -52,25 +52,32 @@ class App extends Component {
 	}
 
 	onExpenseChange = expensePct => {
-		const { salary } = this.state
+		this.setState({ expensePct }, this.calculateSalary)
+	}
+
+	onSalaryChange = salary => {
+		this.setState({ salary }, this.calculateSalary)
+	}
+
+	onSaveClick = () => {
+		this.setState({ isSaved: true })
+	}
+
+	calculateSalary = () => {
+		const { salary, expensePct } = this.state
+
+		if (isNaN(salary)) {
+			return
+		}
 
 		//Calculate Savings and Expense based on new Expense Percent.
 		let expense = (salary / 12) * (expensePct / 100)
 		let savings = (salary / 12) * (1 - expensePct / 100)
 
 		this.setState({
-			expensePct,
 			expense,
 			savings
 		})
-	}
-
-	onSalaryChange = salary => {
-		this.setState({ salary })
-	}
-
-	onSaveClick = () => {
-		this.setState({ isSaved: true })
 	}
 
 	render() {
