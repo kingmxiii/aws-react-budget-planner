@@ -1,5 +1,6 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import 'bootstrap/dist/css/bootstrap.css'
+import Header from './Header'
 import RangeSlider from './RangeSlider'
 import SalaryInfo from './SalaryInfo'
 import { Auth, Hub } from 'aws-amplify'
@@ -14,12 +15,13 @@ class App extends Component {
 		//Initialize Application State
 		this.state = {
 			expensePct: 0,
-			salary: 100000,
+			salary: 0,
 			expense: 0,
 			savings: 0,
 			signedIn: false,
 			user: null,
-			loading: true
+			loading: true,
+			isSaved: false
 		}
 	}
 
@@ -62,6 +64,15 @@ class App extends Component {
 			savings
 		})
 	}
+
+	onSalaryChange = salary => {
+		this.setState({ salary })
+	}
+
+	onSaveClick = () => {
+		this.setState({ isSaved: true })
+	}
+
 	render() {
 		const {
 			expensePct,
@@ -70,24 +81,42 @@ class App extends Component {
 			savings,
 			signedIn,
 			user,
-			loading
+			loading,
+			isSaved
 		} = this.state
 
 		let name = user !== null ? user.name : ''
+		let displayMsg =
+			isSaved === true ? 'Thank you' : 'Welcome to your monthly budget'
 
 		return (
-			<div className="App container">
-				<Protected signedIn={signedIn}>
-					<Loadable loading={loading}>
-						<h4 className="text-center">
-							Welcome to your monthly budget {name}
-						</h4>
-						<RangeSlider value={expensePct} onChange={this.onExpenseChange} />
-						<SalaryInfo salary={salary} expense={expense} savings={savings} />
-					</Loadable>
-					<button onClick={() => Auth.signOut()}>Logout</button>
-				</Protected>
-			</div>
+			<Fragment>
+				<Header signedIn={signedIn} />
+				<div className="App container">
+					<Protected signedIn={signedIn}>
+						<Loadable loading={loading}>
+							<h5 className="text-center">{displayMsg}</h5>
+							<h4 className="text-center">{name}</h4>
+
+							{isSaved === false && (
+								<RangeSlider
+									value={expensePct}
+									onChange={this.onExpenseChange}
+								/>
+							)}
+							<SalaryInfo
+								salary={salary}
+								expense={expense}
+								savings={savings}
+								onSalaryChange={this.onSalaryChange}
+								isSaved={isSaved}
+								onSaveClick={this.onSaveClick}
+								expensePct={expensePct}
+							/>
+						</Loadable>
+					</Protected>
+				</div>
+			</Fragment>
 		)
 	}
 }
