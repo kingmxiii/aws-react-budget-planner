@@ -25,7 +25,17 @@ class App extends Component {
 		Hub.listen('auth', ({ payload: { event, data } }) => {
 			switch (event) {
 				case 'signIn':
-					this.setState({ user: data, signedIn: true })
+					Auth.currentAuthenticatedUser({
+						bypassCache: false // Optional, By default is false. If set to true, this call will send a request to Cognito to get the latest user data
+					}).then(user =>
+						this.setState({
+							user: {
+								name: user.attributes.name,
+								email: user.attributes.email
+							},
+							signedIn: true
+						})
+					)
 					break
 				case 'signOut':
 					this.setState({ user: null, signOut: false })
@@ -56,6 +66,7 @@ class App extends Component {
 					<h1>Hello World!</h1>
 					<RangeSlider value={expensePct} onChange={this.onExpenseChange} />
 					<SalaryInfo salary={salary} expense={expense} savings={savings} />
+					<button onClick={() => Auth.signOut()}>Logout</button>
 				</Protected>
 			</div>
 		)
