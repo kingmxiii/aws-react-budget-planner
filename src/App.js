@@ -7,6 +7,21 @@ import { Auth, Hub } from 'aws-amplify'
 import Protected from './Protected'
 import Loadable from './Loadable'
 import awsconfig from './aws-exports'
+
+const { NODE_ENV } = process.env
+
+const DEFAULT_URL =
+	'https://budget-planner-20200211150132-hostingbucket-budget.s3-website.us-east-2.amazonaws.com/'
+
+console.log('ENV', NODE_ENV)
+console.log('PE', process.env)
+
+if (NODE_ENV === 'production') {
+	awsconfig.oauth.redirectSignIn = DEFAULT_URL
+	awsconfig.oauth.redirectSignOut = DEFAULT_URL
+	awsconfig.aws_user_pools_web_client_id = '1h1knk54nu0iuldi721hab19e9'
+}
+
 Auth.configure(awsconfig)
 
 const deFaultState = {
